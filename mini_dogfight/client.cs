@@ -34,7 +34,7 @@ namespace mini_dogfight
             _localPort = localPort;
             _udpClient = new UdpClient(_localPort);
             _endPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
-            _udpClient.Client.ReceiveTimeout = 10000; // 10 seconds
+            _udpClient.Client.ReceiveTimeout = 30000; // 10 seconds
             initialize_connection();
             if (isInitialized)
             {
