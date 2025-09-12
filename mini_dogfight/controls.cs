@@ -9,9 +9,9 @@ namespace mini_dogfight
 {
     public class Controls
     {
-        public static VirtualKey left { get; set; } = VirtualKey.Left;
-        public static VirtualKey right { get; set; } = VirtualKey.Right;
-        public static VirtualKey up { get; set; } = VirtualKey.Up;
-        public static VirtualKey down { get; set; } = VirtualKey.Down;
+        public static VirtualKey left { get; set; } = VirtualKey.A;
+        public static VirtualKey right { get; set; } = VirtualKey.D;
+        public static VirtualKey up { get; set; } = VirtualKey.W;
+        public static VirtualKey down { get; set; } = VirtualKey.S;
     }
 }

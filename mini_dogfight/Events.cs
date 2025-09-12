@@ -11,5 +11,9 @@ namespace mini_dogfight
     {
         public Action<VirtualKey> OnKeyPress;
         public Action<VirtualKey> OnKeyLeave;
+        public Action<DataObj> OnDataRecieve;
+       
+
+
     }
 }

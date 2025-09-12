@@ -22,9 +22,15 @@ namespace mini_dogfight
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private GameManager Manager;
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Manager = new GameManager(map);
         }
     }
 }

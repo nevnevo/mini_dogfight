@@ -16,17 +16,43 @@ namespace mini_dogfight
         private Canvas _map;
         private List<GameObject> objectList = new List<GameObject>();
         private DispatcherTimer _runTimer;
+        private DispatcherTimer _dataSendTimer;
         public static Events GameEvents { get; private set; } = new Events();
+        public client localClient = new client("127.0.0.1",1111,1234);
+        Triangle other_player;
         public GameManager(Canvas map)
         {
+
+            GameEvents.OnDataRecieve += DataProccess;
+            
             _runTimer = new DispatcherTimer();
             _runTimer.Interval = TimeSpan.FromMilliseconds(1);
             _runTimer.Start();
             _runTimer.Tick += _runTimer_Tick;
-            _map = map;
-            objectList.Add(new Triangle(100, 180, "player_test.png", _map, 120));
+            
+        
+            DispatcherTimer _dataSendTimer = new DispatcherTimer();
+            _dataSendTimer.Interval = TimeSpan.FromMilliseconds(25);
+            _dataSendTimer.Start();
+            _dataSendTimer.Tick += SendData;
+        
+        _map = map;
+            objectList.Add(new Triangle(0, 0, "images/player_test.png", _map, 120, localClient.player,true));//the local player's char
+            other_player = new Triangle(300, 180, "images/player_test.png", _map, 120, localClient.player,false);//that way we have direct access to it
+            objectList.Add(other_player);
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+
+        }
+
+        private void SendData(object sender, object e)
+        {
+            localClient.SendData(other_player.GetData());
+        }
+
+        public void DataProccess(DataObj data)
+        {
+            other_player.SetNewData(data);
         }
 
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)

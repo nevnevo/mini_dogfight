@@ -37,7 +37,7 @@ namespace mini_dogfight
 
         protected void SetImage(string fileName)
         {
-            _objectImage.Source = new BitmapImage(new Uri($"ms-appx:///Assets/{fileName}"));
+            _objectImage.Source = new BitmapImage(new Uri($"ms-appx:///{fileName}"));
         }
         public virtual Rect Rect(int angle)
         {
