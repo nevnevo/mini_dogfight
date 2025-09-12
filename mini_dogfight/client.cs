@@ -38,6 +38,7 @@ namespace mini_dogfight
             initialize_connection();
             if (isInitialized)
             {
+
                 new Thread(Listen).Start();
                 
             }
@@ -61,14 +62,15 @@ namespace mini_dogfight
         {
             byte[] data = _udpClient.Receive(ref _endPoint);
             string recievedData = Encoding.UTF8.GetString(data);
-
+            Mutex mutex = new Mutex();
+            mutex.WaitOne();
             Task.Run(() =>
             {
                 DataObj recievedObject = Newtonsoft.Json.JsonConvert.DeserializeObject<DataObj>(recievedData);
                 ProcessMessage(recievedObject);
             });
+            mutex.ReleaseMutex();
 
-            
         }
         public void SendData(DataObj dataObject)
         {
@@ -97,12 +99,14 @@ namespace mini_dogfight
             bool handshakeComplete = false;
             DateTime start = DateTime.Now;
             byte[] data;
-            while (!handshakeComplete && (DateTime.Now - start).TotalSeconds < 10) // 10s timeout
+            while (!handshakeComplete && (DateTime.Now - start).TotalSeconds < 30) // 10s timeout
             {
                 try
                 {
+                    _udpClient.Send(Encoding.UTF8.GetBytes("AA"), 2, _endPoint);
                     byte[] received = _udpClient.Receive(ref _endPoint);
                     string response = Encoding.UTF8.GetString(received);
+                    
 
                     if (response == "BB")
                     {
