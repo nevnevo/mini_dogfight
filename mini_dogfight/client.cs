@@ -60,18 +60,26 @@ namespace mini_dogfight
 
         private void Listen()
         {
-            byte[] data = _udpClient.Receive(ref _endPoint);
-            string recievedData = Encoding.UTF8.GetString(data);
-            Mutex mutex = new Mutex();
-            mutex.WaitOne();
-            Task.Run(() =>
+            while (true)
             {
-                DataObj recievedObject = Newtonsoft.Json.JsonConvert.DeserializeObject<DataObj>(recievedData);
-                ProcessMessage(recievedObject);
-            });
-            mutex.ReleaseMutex();
+                try
+                {
+                    byte[] data = _udpClient.Receive(ref _endPoint);
+                    string recievedData = Encoding.UTF8.GetString(data);
 
+                    Task.Run(() =>
+                    {
+                        DataObj recievedObject = JsonConvert.DeserializeObject<DataObj>(recievedData);
+                        ProcessMessage(recievedObject);
+                    });
+                }
+                catch (SocketException)
+                {
+                    // Timeout or network error
+                }
+            }
         }
+
         public void SendData(DataObj dataObject)
         {
             string jsonData = JsonConvert.SerializeObject(dataObject);
@@ -79,16 +87,21 @@ namespace mini_dogfight
             _udpClient.Send(data, data.Length, _endPoint);
         }
 
-        private void ProcessMessage(object message)
+        private async void ProcessMessage(object message)
         {
-            if(message is DataObj dataObject)//only if we its a DataObj we proccess it.
+            if (message is DataObj dataObject)
             {
                 if (GameManager.GameEvents.OnDataRecieve != null)
                 {
-                    GameManager.GameEvents.OnDataRecieve(dataObject);
+                    // Ensure UI updates run on UI thread
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () => GameManager.GameEvents.OnDataRecieve(dataObject)
+                    );
                 }
             }
         }
+
 
         public void initialize_connection()
         {
