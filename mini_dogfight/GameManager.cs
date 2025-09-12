@@ -18,7 +18,7 @@ namespace mini_dogfight
         private DispatcherTimer _runTimer;
         private DispatcherTimer _dataSendTimer;
         public static Events GameEvents { get; private set; } = new Events();
-        public client localClient = new client("127.0.0.1",1111,1234);
+        public client localClient = new client("10.0.0.14",1111,1111);
         Triangle other_player;
         public GameManager(Canvas map)
         {

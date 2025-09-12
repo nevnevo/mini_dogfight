@@ -111,6 +111,8 @@ namespace mini_dogfight
                     }
                     else if (response == "AA")
                     {
+                        handshakeComplete = true;
+                        isInitialized = true;
                         _udpClient.Send(Encoding.UTF8.GetBytes("BB"), 2, _endPoint);
                     }
                 }
@@ -118,6 +120,13 @@ namespace mini_dogfight
             }
 
             // Step 2: exchange numbers
+            if (isInitialized)
+            {
+                AllocConsole();
+                Console.WriteLine("Connection Initialized, moving to step 2");
+
+            }
+                
             data = Encoding.UTF8.GetBytes(posNumber.ToString());
             _udpClient.Send(data, data.Length, _endPoint);
 
