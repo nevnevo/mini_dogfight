@@ -49,7 +49,8 @@ namespace mini_dogfight
             }
             else
             {
-                objectList.Add(new Triangle(_map.ActualWidth - 100-120, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
+                this_player = new Triangle(_map.ActualWidth - 100 - 120, 100, "images/player_test.png", _map, 120, localClient.player, true);
+                objectList.Add(this_player);//the local player's char
                 other_player = new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
                 objectList.Add(other_player);
             }
