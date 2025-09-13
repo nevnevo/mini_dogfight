@@ -35,8 +35,9 @@ namespace mini_dogfight
             _udpClient = new UdpClient(_localPort);
             _endPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             _udpClient.Client.ReceiveTimeout = 30000; // 10 seconds
+            
             initialize_connection();
-            if (isInitialized)
+            if (isInitialized && )
             {
 
                 new Thread(Listen).Start();
@@ -159,6 +160,12 @@ namespace mini_dogfight
                     else
                         player = Player.PlayerB;
 
+                }
+                else
+                {
+                    AllocConsole();
+                    Console.WriteLine("Invalid peer code received from server.");
+                    isInitialized = false;
                 }
                
             }
