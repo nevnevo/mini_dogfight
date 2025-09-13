@@ -39,8 +39,7 @@ namespace mini_dogfight
         
         public override void Render()//הפעולה צריכה להתבצע ללא הפסקה עבור כל הדמויות הנעות
         {
-            _x += 3;///שינוי מיקום
-            _y += 3;
+            
             Canvas.SetLeft(_objectImage, _x);
             Canvas.SetTop(_objectImage, _y);
 
