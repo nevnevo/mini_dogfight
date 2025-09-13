@@ -54,13 +54,7 @@ namespace mini_dogfight
 
             
             
-            foreach(object obj in objectList)
-            {
-                if(obj is Triangle tring)
-                {
-                    tring.Arrange();
-                }
-            }
+            
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
 
