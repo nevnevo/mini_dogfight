@@ -7,6 +7,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using static mini_dogfight.client;
 
 namespace mini_dogfight
 {
@@ -36,11 +37,30 @@ namespace mini_dogfight
             _dataSendTimer.Interval = TimeSpan.FromMilliseconds(25);
             _dataSendTimer.Start();
             _dataSendTimer.Tick += SendData;
-            
             _map = map;
-            objectList.Add(new Triangle(0, 0, "images/player_test.png", _map, 120, localClient.player,true));//the local player's char
-            other_player = new Triangle(300, 180, "images/player_test.png", _map, 120, localClient.remotePlayer,false);//that way we have direct access to it
-            objectList.Add(other_player);
+
+            if (localClient.player == client.Player.PlayerA)
+            {
+                objectList.Add(new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
+                other_player = new Triangle(_map.ActualWidth-100, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
+                objectList.Add(other_player);
+            }
+            else
+            {
+                objectList.Add(new Triangle(_map.ActualWidth - 100, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
+                other_player = new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
+                objectList.Add(other_player);
+            }
+
+            
+            
+            foreach(object obj in objectList)
+            {
+                if(obj is Triangle tring)
+                {
+                    tring.Arrange();
+                }
+            }
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
 

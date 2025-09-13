@@ -16,6 +16,7 @@ using Windows.Foundation;
 
 using Windows.UI;
 using Windows.UI.Composition.Scenes;
+using static mini_dogfight.client;
 
 namespace mini_dogfight
 {
@@ -32,19 +33,11 @@ namespace mini_dogfight
             _field = field;
             _player = player;
 
-            if (player == client.Player.PlayerA)
-            {
-                _x = 100;
-                _y = 300;
-            }
-            else
-            {
-                _x = field.ActualWidth - 100;
-                _y = 300;
-            }
+            
             this.isLocalPlayer = isLocalPlayer;
             
         }
+        
         public override void Render()//הפעולה צריכה להתבצע ללא הפסקה עבור כל הדמויות הנעות
         {
             _x += 3;///שינוי מיקום
