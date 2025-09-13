@@ -35,7 +35,7 @@ namespace mini_dogfight
 
 
             _dataSendTimer = new DispatcherTimer();
-            _dataSendTimer.Interval = TimeSpan.FromMilliseconds(25);
+            _dataSendTimer.Interval = TimeSpan.FromMilliseconds(10);
             _dataSendTimer.Start();
             _dataSendTimer.Tick += SendData;
             _map = map;

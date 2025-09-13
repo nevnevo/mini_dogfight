@@ -75,12 +75,12 @@ namespace mini_dogfight
 
         private void Drive(int v)
         {
-            _x += v * 5;
+            _speedX = v * 5;
         }
 
         private void Vertical(int v)
         {
-            _y += v * 5;
+            _speedY = v * 5;
         }
     }
 }
