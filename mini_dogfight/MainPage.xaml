@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded"
     Width="500"
     Height="500"
-    Background="Wheat">
+    Loaded="Page_Loaded"
+    
+    
+    >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,7 +29,10 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Canvas  x:Name="map" Grid.Row="0" Grid.ColumnSpan="14" Grid.RowSpan="11" Grid.Column="0">
+        <Grid.Background>
+            <SolidColorBrush Color="LightBlue"/>
+        </Grid.Background>
+        <Canvas  x:Name="map" Grid.Row="0" Grid.ColumnSpan="6" Grid.RowSpan="5" Grid.Column="0" >
             
         </Canvas>
     </Grid>
