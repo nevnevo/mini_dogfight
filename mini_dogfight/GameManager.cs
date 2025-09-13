@@ -65,6 +65,7 @@ namespace mini_dogfight
 
         private void SendData(object sender, object e)
         {
+
             localClient.SendData(this_player.GetData());
         }
 

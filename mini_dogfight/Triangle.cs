@@ -66,21 +66,21 @@ namespace mini_dogfight
         }
         public void SetNewData(DataObj data)
         {
-            _x = data.getX();
-            _y = data.getY();
-            _speedX = data.getSpeedX();
-            _speedY = data.getSpeedY();
-            Render();
+            _x = data.X;
+            _y = data.Y;
+            _speedX = data.SpeedX;
+            _speedY = data.SpeedY;
+            base.Render();
         }
 
         private void Drive(int v)
         {
-            _speedX += v * 5;
+            _x += v * 5;
         }
 
         private void Vertical(int v)
         {
-            _speedY += v * 5;
+            _y += v * 5;
         }
     }
 }
