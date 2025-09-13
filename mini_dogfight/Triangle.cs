@@ -70,7 +70,7 @@ namespace mini_dogfight
             _y = data.getY();
             _speedX = data.getSpeedX();
             _speedY = data.getSpeedY();
-            base.Render();
+            Render();
         }
 
         private void Drive(int v)
