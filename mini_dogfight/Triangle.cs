@@ -22,8 +22,7 @@ namespace mini_dogfight
 {
     public class Triangle:GameMovingObject
     {
-        private double _x;
-        private double _y;
+        
         private client.Player _player;
         private bool isLocalPlayer;
         Canvas _field;
@@ -72,7 +71,7 @@ namespace mini_dogfight
             _y = data.getY();
             _speedX = data.getSpeedX();
             _speedY = data.getSpeedY();
-            Render();
+            
         }
 
         private void Drive(int v)

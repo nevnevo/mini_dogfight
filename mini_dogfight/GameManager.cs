@@ -21,7 +21,8 @@ namespace mini_dogfight
         public static Events GameEvents { get; private set; } = new Events();
         public client localClient = new client("10.0.0.14",1111,1111);
         Triangle other_player;
-        
+        Triangle this_player;
+
         public GameManager(Canvas map)
         {
 
@@ -41,13 +42,14 @@ namespace mini_dogfight
 
             if (localClient.player == client.Player.PlayerA)
             {
-                objectList.Add(new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
-                other_player = new Triangle(_map.ActualWidth-100, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
+                this_player = new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.player, true);
+                objectList.Add(this_player);//the local player's char
+                other_player = new Triangle(_map.ActualWidth-100-120, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
                 objectList.Add(other_player);
             }
             else
             {
-                objectList.Add(new Triangle(_map.ActualWidth - 100, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
+                objectList.Add(new Triangle(_map.ActualWidth - 100-120, 100, "images/player_test.png", _map, 120, localClient.player, true));//the local player's char
                 other_player = new Triangle(100, 100, "images/player_test.png", _map, 120, localClient.remotePlayer, false);//that way we have direct access to it
                 objectList.Add(other_player);
             }
@@ -62,7 +64,7 @@ namespace mini_dogfight
 
         private void SendData(object sender, object e)
         {
-            localClient.SendData(other_player.GetData());
+            localClient.SendData(this_player.GetData());
         }
 
         public void DataProccess(DataObj data)
