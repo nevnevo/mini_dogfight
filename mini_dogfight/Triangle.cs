@@ -23,26 +23,27 @@ namespace mini_dogfight
     {
         private double _x;
         private double _y;
-        private client.Player player;
+        private client.Player _player;
         private bool isLocalPlayer;
         Canvas _field;
         public Triangle(double x, double y, string fileName, Canvas field, double size, client.Player player,bool isLocalPlayer) : base(x, y, fileName, field, size)
         {
             GameManager.GameEvents.OnKeyPress += Move;
             _field = field;
-            this.player = player;
+            _player = player;
 
             if (player == client.Player.PlayerA)
             {
-                x = 100;
-                y = 100;
+                _x = 100;
+                _y = 300;
             }
             else
             {
-                x = field.ActualWidth - 100;
-                y = 100;
+                _x = field.ActualWidth - 100;
+                _y = 300;
             }
             this.isLocalPlayer = isLocalPlayer;
+            
         }
         public override void Render()//הפעולה צריכה להתבצע ללא הפסקה עבור כל הדמויות הנעות
         {
@@ -56,7 +57,7 @@ namespace mini_dogfight
         }
         protected void Move(VirtualKey key)
         {
-            if(isLocalPlayer) return;//רק השחקן המקומי יכול להזיז את הדמות שלו
+            if(!isLocalPlayer) return;//רק השחקן המקומי יכול להזיז את הדמות שלו
             if (key == Controls.up)
                 Vertical(-1);
             if (key == Controls.down)

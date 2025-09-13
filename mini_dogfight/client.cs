@@ -29,6 +29,7 @@ namespace mini_dogfight
             PlayerB
         }
         public Player player { get; set; }
+        public Player remotePlayer { get; set; }
         public client(string serverIP, int serverPort, int localPort)
         {
             _localPort = localPort;
@@ -37,7 +38,7 @@ namespace mini_dogfight
             _udpClient.Client.ReceiveTimeout = 30000; // 10 seconds
             
             initialize_connection();
-            if (isInitialized && )
+            if (isInitialized)
             {
 
                 new Thread(Listen).Start();
@@ -137,13 +138,8 @@ namespace mini_dogfight
                 catch (SocketException) { /* timeout, retry */ }
             }
 
-            // Step 2: exchange numbers
-            if (isInitialized)
-            {
-                AllocConsole();
-                Console.WriteLine("Connection Initialized, moving to step 2");
-
-            }
+            // Step 2: exzchange numbers
+            
                 
             data = Encoding.UTF8.GetBytes(posNumber.ToString());
             _udpClient.Send(data, data.Length, _endPoint);
@@ -156,9 +152,17 @@ namespace mini_dogfight
                 {
                     
                     if(posNumber > peerCode)
+                    {
                         player = Player.PlayerA;
+                        remotePlayer = Player.PlayerB;
+                    }
+
                     else
+                    {
                         player = Player.PlayerB;
+                        remotePlayer=Player.PlayerA;
+                    }
+                        
 
                 }
                 else

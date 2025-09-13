@@ -20,6 +20,7 @@ namespace mini_dogfight
         public static Events GameEvents { get; private set; } = new Events();
         public client localClient = new client("10.0.0.14",1111,1111);
         Triangle other_player;
+        
         public GameManager(Canvas map)
         {
 
@@ -29,16 +30,16 @@ namespace mini_dogfight
             _runTimer.Interval = TimeSpan.FromMilliseconds(1);
             _runTimer.Start();
             _runTimer.Tick += _runTimer_Tick;
-            
-        
-            DispatcherTimer _dataSendTimer = new DispatcherTimer();
+
+
+            _dataSendTimer = new DispatcherTimer();
             _dataSendTimer.Interval = TimeSpan.FromMilliseconds(25);
             _dataSendTimer.Start();
             _dataSendTimer.Tick += SendData;
-        
-        _map = map;
+            
+            _map = map;
             objectList.Add(new Triangle(0, 0, "images/player_test.png", _map, 120, localClient.player,true));//the local player's char
-            other_player = new Triangle(300, 180, "images/player_test.png", _map, 120, localClient.player,false);//that way we have direct access to it
+            other_player = new Triangle(300, 180, "images/player_test.png", _map, 120, localClient.remotePlayer,false);//that way we have direct access to it
             objectList.Add(other_player);
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
